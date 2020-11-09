@@ -68,7 +68,6 @@ end
 
 
 function getFruit()
-	print("Getting the damn fruit!")
 	while wait() do
 		for _, v in pairs(workspace:GetChildren()) do
 			if v:IsA("Tool") then
