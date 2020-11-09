@@ -50,7 +50,7 @@ end
 function toTarget(pos, targetPos, targetCFrame)
 	local info = TweenInfo.new((targetPos - pos).Magnitude / 500, Enum.EasingStyle.Linear)
 	local tween, err = pcall(function()
-		local tween = tweenService:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = targetCFrame * CFrame.fromAxisAngle(Vector3.new(1,0,0), math.rad(90))})
+		local tween = tweenService:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = targetCFrame})
 		tween:Play()
 	end)
 	if not tween then return err end
