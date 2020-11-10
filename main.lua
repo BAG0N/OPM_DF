@@ -208,5 +208,5 @@ local minLeft, _ = unpack(checkTime())
 if minLeft > 4 and not fruitSpawned() then
 	serverHop()
 else
-	getFruit()
+	createGui()
 end
