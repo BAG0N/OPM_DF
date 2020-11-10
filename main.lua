@@ -10,8 +10,6 @@ local noclip = false
 local fruit = nil
 local travelling = true
 
-if not getgenv().cache then getgenv().cache = {} end
-
 
 function contains(arr, el)
 	for _, v in pairs(arr) do
@@ -55,17 +53,16 @@ end
 
 function serverHop()
 	local servers = http:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
-	for _, server in pairs(servers.data) do
-		if tonumber(server.playing) + 2 < tonumber(server.maxPlayers) and server.id ~= game.JobId and not contains(getgenv().cache) then
-			local success, err = pcall(function()
-				tp:TeleportToPlaceInstance(game.PlaceId, server.id)
-			end)
-			if success then
-				table.insert(getgenv().cache, server.id)
-				break
-			end
-		end
-	end
+    local randomServer = servers.data[math.ceil(math.random() * #servers.data)]
+
+    if randomServer.playing + 2 < randomServer.maxPlayers and randomServer.id ~= game.JobId then
+        local success, err = pcall(function()
+			tp:TeleportToPlaceInstance(game.PlaceId, randomServer.id)
+		end)
+        if err then serverHop() end
+    else
+        serverHop()
+    end
 end
 
 
