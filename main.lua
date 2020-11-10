@@ -178,7 +178,7 @@ function createGui()
         end
 	})
 
-	local txt = Instance.new("ImageLabel", coreGui.PlayerGui[title].MainFrame.Content.MAIN)
+	local txt = Instance.new("ImageLabel", coreGui[title].MainFrame.Content.MAIN)
 	txt.Size = UDim2.new(1, 0, 0, 30)
 	txt.BackgroundTransparency = 1
 	txt.BorderSizePixel = 0
