@@ -164,6 +164,11 @@ function createGui()
 	local mainPage = ui.New({
 		Title = 'Main'
 	})
+	
+	local hopper = mainPage.Button({
+		Text = 'Continue Server Hopping',
+		Callback = serverHop
+	})
 
 	local DfEsp = mainPage.Toggle({
 		Text = 'DF ESP',
@@ -173,9 +178,9 @@ function createGui()
 	local DfTravel = mainPage.Toggle({
 		Text = 'Travel to DF',
 		Callback = function(switch)
-            travelling = switch
-            getFruit()
-        end
+			travelling = switch
+			getFruit()
+		end
 	})
 
 	local txt = Instance.new("ImageLabel", coreGui[title].MainFrame.Content.MAIN)
@@ -193,7 +198,7 @@ function createGui()
 	textLabel.Font = Enum.Font.GothamSemibold
 	textLabel.TextSize = 14
 	textLabel.Text = "DF should spawn in MM:SS"
-	
+
 	spawn(function()
 		while wait(0.2) do
 			local mins, secs = checkTime()
