@@ -192,7 +192,7 @@ function createGui()
 	
 	spawn(function()
 		while wait(0.2) do
-			local mins, secs = unpack(checkTime())
+			local mins, secs = checkTime()
 			textLabel.Text = string.format("DF should spawn in %02d:%02d", mins, secs)
 		end
 	end)
@@ -204,7 +204,7 @@ runService.RenderStepped:Connect(function()
 end)
 
 
-local minLeft, _ = unpack(checkTime())
+local minLeft, _ = checkTime()
 if minLeft > 4 and not fruitSpawned() then
 	serverHop()
 else
