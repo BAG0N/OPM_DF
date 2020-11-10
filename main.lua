@@ -75,7 +75,6 @@ function checkTime()
 	local secs = math.floor((legitTime - math.floor(legitTime)) * 60)
 	local mins = math.floor(legitTime)
 	local formattedTime = string.format('%02d:%02d', mins, secs)
-	print("DF might spawn in -", formattedTime)
 	return mins, secs
 end
 
