@@ -6,6 +6,8 @@ local tp = game:GetService("TeleportService")
 local runService = game:GetService("RunService")
 local tweenService = game:GetService("TweenService")
 local noclip = false
+local fruit = nil
+local travelling = true
 
 if not getgenv().cache then getgenv().cache = {} end
 
@@ -17,6 +19,36 @@ function contains(arr, el)
 		end
 	end
 	return false
+end
+
+
+function esp(switch)
+	if switch then
+		repeat
+			for _, v in pairs(workspace:GetChildren()) do
+				if v:IsA("Tool") then
+					local part = v:FindFirstChildWhichIsA("BasePart")
+					if part then fruit = part; break end
+				end
+			end
+			wait(0.1)
+		until fruit or not switch
+
+		local gui = Instance.new("BillboardGui", fruit)
+		gui.AlwaysOnTop = true
+		gui.Size = UDim2.new(0, 100, 0, 50)
+		local txt = Instance.new("TextLabel", gui)
+		txt.Text = "Devil Fruit"
+		txt.Font = Enum.Font.Cartoon
+		txt.TextColor3 = Color3.new(0, 1, 0)
+		txt.Size = UDim2.new(0, 100, 0, 50)
+		txt.BackgroundTransparency = 1
+		txt.TextScaled = true
+	else
+		if fruit and fruit:FindFirstChildWhichIsA("BillboardGui") then
+			fruit:FindFirstChildWhichIsA("BillboardGui"):Destroy()			
+		end
+	end
 end
 
 
@@ -43,7 +75,7 @@ function checkTime()
 	local mins = math.floor(legitTime)
 	local formattedTime = string.format('%02d:%02d', mins, secs)
 	print("DF might spawn in -", formattedTime)
-	return mins
+	return mins, secs
 end
 
 
@@ -68,14 +100,14 @@ end
 
 
 function getFruit()
-	while wait() do
+	while wait() and travelling do
 		for _, v in pairs(workspace:GetChildren()) do
 			if v:IsA("Tool") then
 				local fruit = v:FindFirstChildWhichIsA("BasePart")
 				if fruit then
 					noclip = true
 					toTarget(root.Position, fruit.Position, fruit.CFrame)
-					while wait() and (fruit.Position - root.Position).Magnitude > 10 do end
+					while wait(0.1) and (fruit.Position - root.Position).Magnitude > 10 do end
 					noclip = false
 				end
 			end
@@ -84,12 +116,95 @@ function getFruit()
 end
 
 
+local fruit = nil
+local plr = game:GetService("Players").LocalPlayer
+
+function esp(switch)
+	if switch then
+		repeat
+			for _, v in pairs(workspace:GetChildren()) do
+				if v:IsA("Tool") then
+					local part = v:FindFirstChildWhichIsA("BasePart")
+					if part then fruit = part; break end
+				end
+			end
+			wait(0.1)
+		until fruit or not switch
+
+		local gui = Instance.new("BillboardGui", fruit)
+		gui.AlwaysOnTop = true
+		gui.Size = UDim2.new(0, 100, 0, 50)
+		local txt = Instance.new("TextLabel", gui)
+		txt.Text = "Devil Fruit"
+		txt.Font = Enum.Font.Cartoon
+		txt.Size = UDim2.new(0, 100, 0, 50)
+		txt.TextColor3 = Color3.new(0, 1, 0)
+		txt.BackgroundTransparency = 1
+		txt.TextScaled = true
+	else
+		if fruit and fruit:FindFirstChildWhichIsA("BillboardGui") then
+			fruit:FindFirstChildWhichIsA("BillboardGui"):Destroy()			
+		end
+	end
+end
+
+
+function createGui()
+	local material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
+	local title = "One Piece Millenium 3 DF"
+
+	local ui = material.Load({
+		Title = title,
+		Style = 3,
+		SizeX = 300,
+		SizeY = 300,
+		Theme = "Light"
+	})
+	local mainPage = ui.New({
+		Title = 'Main'
+	})
+
+	local DfEsp = mainPage.Toggle({
+		Text = 'DF ESP',
+		Callback = function(switch) esp(switch) end
+	})
+
+	local DfTravel = mainPage.Toggle({
+		Text = 'Travel to DF',
+		Callback = function(switch)	end
+	})
+
+	local txt = Instance.new("ImageLabel", plr.PlayerGui[title].MainFrame.Content.MAIN)
+	txt.Size = UDim2.new(1, 0, 0, 30)
+	txt.BackgroundTransparency = 1
+	txt.BorderSizePixel = 0
+	txt.ImageTransparency = 0.8
+	txt.Image = 'http://www.roblox.com/asset/?id=5554237731'
+	txt.ImageColor3 = Color3.fromRGB(124, 37, 255)
+
+	local textLabel = Instance.new("TextLabel", txt)
+	textLabel.BackgroundTransparency = 1
+	textLabel.Size = UDim2.new(1, 0, 1, 0)
+	textLabel.TextColor3 = Color3.fromRGB(124, 37, 255)
+	textLabel.Font = Enum.Font.GothamSemibold
+	textLabel.TextSize = 14
+	textLabel.Text = "DF should spawn in MM:SS"
+	
+	spawn(function()
+		while wait(0.2) do
+			local mins, secs = unpack(checkTime())
+			textLabel.Text = string.format("DF should spawn in %02d:%02d", mins, secs)
+		end
+	end)
+end
+
+
 runService.RenderStepped:Connect(function()
 	if noclip then char.Humanoid:ChangeState(11) end
 end)
 
 
-local minLeft = checkTime()
+local minLeft, _ = unpack(checkTime())
 if minLeft > 4 and not fruitSpawned() then
 	serverHop()
 else
