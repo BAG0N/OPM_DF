@@ -37,8 +37,8 @@ end
 
 
 function checkTime()
-	local serverTime = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GetTime"):InvokeServer() / 2400
-	local legitTime = (math.ceil(serverTime) - serverTime) * 40
+	local serverTime = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GetTime"):InvokeServer() / 4200
+	local legitTime = (math.ceil(serverTime) - serverTime) * 70
 	local secs = math.floor((legitTime - math.floor(legitTime)) * 60)
 	local mins = math.floor(legitTime)
 	local formattedTime = string.format('%02d:%02d', mins, secs)
