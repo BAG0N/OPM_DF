@@ -214,7 +214,7 @@ end)
 
 
 local minLeft, _ = checkTime()
-if minLeft > 4 and not fruitSpawned() then
+if minLeft > getgenv().minutes and not fruitSpawned() then
 	serverHop()
 else
 	createGui()
