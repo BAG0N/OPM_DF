@@ -3,6 +3,7 @@ local char = plr.Character or plr.CharacterAdded:Wait()
 local root = char:WaitForChild("HumanoidRootPart")
 local http = game:GetService("HttpService")
 local tp = game:GetService("TeleportService")
+local coreGui = game:GetService("CoreGui")
 local runService = game:GetService("RunService")
 local tweenService = game:GetService("TweenService")
 local noclip = false
@@ -171,10 +172,13 @@ function createGui()
 
 	local DfTravel = mainPage.Toggle({
 		Text = 'Travel to DF',
-		Callback = function(switch)	end
+		Callback = function(switch)
+            travelling = switch
+            getFruit()
+        end
 	})
 
-	local txt = Instance.new("ImageLabel", plr.PlayerGui[title].MainFrame.Content.MAIN)
+	local txt = Instance.new("ImageLabel", coreGui.PlayerGui[title].MainFrame.Content.MAIN)
 	txt.Size = UDim2.new(1, 0, 0, 30)
 	txt.BackgroundTransparency = 1
 	txt.BorderSizePixel = 0
