@@ -8,7 +8,7 @@ local coreGui = game:GetService("CoreGui")
 local runService = game:GetService("RunService")
 local tweenService = game:GetService("TweenService")
 local noclip = false
-local spawnTime = getgenv().spawnTime or 60
+local spawnTime = getgenv().spawnTime or 70
 local fruit = nil
 local travelling = true
 
