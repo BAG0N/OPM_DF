@@ -1,3 +1,4 @@
+repeat wait() until game:IsLoaded()
 local plr = game.Players.LocalPlayer
 local char = plr.Character or plr.CharacterAdded:Wait()
 local root = char:WaitForChild("HumanoidRootPart")
