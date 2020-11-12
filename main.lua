@@ -79,7 +79,7 @@ end
 
 
 function toTarget(pos, targetPos, targetCFrame)
-	local info = TweenInfo.new((targetPos - pos).Magnitude / 500, Enum.EasingStyle.Linear)
+	local info = TweenInfo.new((targetPos - pos).Magnitude / 250, Enum.EasingStyle.Linear)
 	local tween, err = pcall(function()
 		local tween = tweenService:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = targetCFrame})
 		tween:Play()
