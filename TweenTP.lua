@@ -1,3 +1,4 @@
+while not game:IsLoaded() do wait() end
 local speed = getgenv().speed or 300
 local plr = game:GetService("Players").LocalPlayer
 local tweenService = game:GetService("TweenService")
