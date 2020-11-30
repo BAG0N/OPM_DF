@@ -1,10 +1,10 @@
 while not game:IsLoaded() do wait() end
-local speed = getgenv().speed or 300
 local plr = game:GetService("Players").LocalPlayer
 local tweenService = game:GetService("TweenService")
 
 
 function toTarget(target)
+	local speed = getgenv().speed or 300
 	local info = TweenInfo.new((target.Position - plr.Character.HumanoidRootPart.Position).Magnitude / speed, Enum.EasingStyle.Linear)
 	local _, err = pcall(function()
 		tweenService:Create(plr.Character.HumanoidRootPart, info, {CFrame = target}):Play()
