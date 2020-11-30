@@ -5,7 +5,7 @@ local tweenService = game:GetService("TweenService")
 
 
 function toTarget(target)
-	local info = TweenInfo.new((target.Position - plr.Character.HumanoidRootPart.Position).Magnitude / 300, Enum.EasingStyle.Linear)
+	local info = TweenInfo.new((target.Position - plr.Character.HumanoidRootPart.Position).Magnitude / speed, Enum.EasingStyle.Linear)
 	local _, err = pcall(function()
 		tweenService:Create(plr.Character.HumanoidRootPart, info, {CFrame = target}):Play()
 	end)
